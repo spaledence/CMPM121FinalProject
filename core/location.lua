@@ -22,11 +22,11 @@ function Location:new(id, x, y)
 
     setmetatable(loc, self)
 
-    -- Calculate horizontal offset to center the rows
+    -- center the rows
     local rowWidth = (loc.maxSlots * loc.slotSpacing) - (loc.slotSpacing - loc.slotW)
     local offsetX = (loc.width - rowWidth) / 2
 
-    -- Create player and AI slot rects
+    -- Create player + AI slot rects
     for i = 1, loc.maxSlots do
         local cx = x + offsetX + (i - 1) * loc.slotSpacing
         -- AI row (top)
@@ -74,11 +74,11 @@ function Location:clearCards()
 end
 
 function Location:draw()
-    -- Board outline
+    --Board outline
     love.graphics.setColor(1, 1, 1, 0.2)
     love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
 
-    -- Draw slot outlines first
+    --Draw slot outlines first
     love.graphics.setColor(1, 1, 1, 0.1)
     for i = 1, self.maxSlots do
         local p = self.playerSlotRects[i]
@@ -87,7 +87,7 @@ function Location:draw()
         love.graphics.rectangle("line", a.x, a.y, a.w, a.h, 6, 6)
     end
 
-    -- Draw AI cards (face-down or placeholder)
+    -- Draw AI cards 
     for i = 1, self.maxSlots do
         local rect = self.aiSlotRects[i]
         local card = self.aiSlots[i]

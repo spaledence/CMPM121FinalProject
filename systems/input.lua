@@ -22,7 +22,7 @@ function Input.mousepressed(x, y, button, player, handSlotRects)
                     end
         
                     if count >= 2 then
-                        return  -- prevent drag
+                        return  -- prevent
                     end
         
                     heldCard = CardLibrary.getCardByName(card.name)
@@ -70,7 +70,7 @@ function Input.mousereleased(x, y, button, player, locations, handSlotRects)
             for i, slot in ipairs(GameState.deckBuilderDeckSlots or {}) do
                 if not GameState.playerSelectedDeck[i] and
                    x >= slot.x and x <= slot.x + 60 and y >= slot.y and y <= slot.y + 90 then
-                    -- Check if we've already added 2 of this card
+                    -- Check if added 2 of this card
                     local count = 0
                     for _, c in ipairs(GameState.playerSelectedDeck) do
                         if c and c.name == heldCard.name then count = count + 1 end
@@ -85,7 +85,6 @@ function Input.mousereleased(x, y, button, player, locations, handSlotRects)
                 end
             end
         
-            -- Didn't place: discard drag
             heldCard = nil
             return
         end

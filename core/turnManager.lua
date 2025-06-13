@@ -52,12 +52,11 @@ function TurnManager:nextPhase()
         if self.currentFirst == "player" and not self.aiHasPlayedThisTurn then
             self:aiPlayCard()
             self.aiHasPlayedThisTurn = true
-            --return -- Don't proceed until AI has played
         end
 
         
 
-        -- Proceed to reveal phase
+        -- reveal phase
         self.phase = "reveal"
         for _, loc in ipairs(GameState.locations) do
             for _, card in pairs(loc.playerSlots) do
@@ -79,7 +78,7 @@ function TurnManager:nextPhase()
             end
         end
 
-        -- Score resolution
+        -- Score resolve
         for _, loc in ipairs(GameState.locations) do
             local p = loc:getPower("player")
             local a = loc:getPower("ai")

@@ -104,7 +104,7 @@ function GameState:load()
                     topCard:draw()
                 end
 
-                -- Draw AI discard pile, face-up and fanned
+                -- Draw AI discard pile
                 if #GameState.ai.discardPile > 0 then
                     local card = GameState.ai.discardPile[#GameState.ai.discardPile]
                     card.faceUp = true
@@ -168,7 +168,7 @@ function GameState:load()
                 love.graphics.printf("Deck Builder", 0, 20, 960, "center")
                 love.graphics.printf("Click a card to add it to your deck (Max 2 each)", 0, 50, 960, "center")
 
-                -- Deck builder deck slots
+                --Deck builder deck slots
                 local slotWidth, slotHeight = 60, 90
                 local cols = 10
                 local rows = 2
@@ -186,7 +186,7 @@ function GameState:load()
                 end
 
 
-                -- Draw deck slots
+                --Draw reg deck slots
                 for i, slot in ipairs(GameState.deckBuilderDeckSlots) do
                     love.graphics.setColor(1, 1, 1, 0.2)
                     love.graphics.rectangle("line", slot.x, slot.y, 60, 90, 6, 6)
@@ -199,7 +199,7 @@ function GameState:load()
                 end
         
                 GameState.previewCards = {}
-                -- Draw available cards
+                --draw available cards
                 local spacing = 70
                 for i, name in ipairs(CardLibrary.getAllCardNames()) do
                     local x = 50 + ((i - 1) % 8) * spacing
@@ -208,13 +208,13 @@ function GameState:load()
                     card:setPosition(x, y)
                     card.faceUp = true
 
-                    -- Check how many copies already in deck
+                    --Check how many copies already in deck
                     local count = 0
                     for _, c in ipairs(GameState.playerDeck) do
                         if c.name == name then count = count + 1 end
                     end
 
-                    -- If maxed out, draw card grayed out
+                    --If maxed out, draw card grayed out
                     if count >= 2 then
                         love.graphics.setColor(0.5, 0.5, 0.5, 1)  -- gray tint
                     else
@@ -232,7 +232,7 @@ function GameState:load()
                     end
                 end
                 
-                -- 🧠 Tooltip
+                
                 if Input.hoveredCard and Input.hoveredCard.faceUp then
                     Input.drawTooltip()
                 end
@@ -280,13 +280,11 @@ function GameState:load()
         }
     }
 
-    -- ✅ Create player with card library
+    -- Create player w/ card library
     self.player = Player:new("TestPlayer", false)
-    --self.player.deck = CardLibrary.getStarterDeck()
 
     -- ai card 
     self.ai = Player:new("Bot", true)
-    --self.ai.deck = CardLibrary.getStarterDeck()
 
     self.turnManager = TurnManager
     self.turnManager:init(self.player, self.ai)
@@ -298,7 +296,7 @@ function GameState:load()
         table.insert(self.aiHandSlotRects, { x = startX + (i - 1) * spacing, y = 60 })
     end
 
-    -- ✅ Create hand slot rects
+    -- create hand slot rects
     self.handSlotRects = {}
     local startX = 100
     local spacing = 80
@@ -306,7 +304,7 @@ function GameState:load()
         table.insert(self.handSlotRects, {x = startX + (i - 1) * spacing, y = 600})
     end
 
-    -- ✅ Create locations
+    -- create locations
     self.locations = {}
     local locWidth, spacing = 300, 60
     local totalWidth = (3 * locWidth) + (2 * spacing)
@@ -401,13 +399,11 @@ function GameState:resetToMenu()
     GameState.playerDeck = {}
     GameState.aiDeck = {}
 
-    -- Reset turn manager state
     self.turnManager.turn = 1
     self.turnManager.phase = "play"
     self.turnManager.aiHasPlayedThisTurn = false
     self.turnManager.aiPlayElapsed = 0
 
-    -- Reset scores
     GameState.playerScore = 0
     GameState.aiScore = 0
 end

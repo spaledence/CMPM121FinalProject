@@ -9,8 +9,8 @@ function Player:new(name, isAI)
         isAI = isAI or false,
         deck = {},
         hand = {},
-        staged = { {}, {}, {} },   -- played cards (not used by Input, but kept for compatibility)
-        discardPile = {},          -- <- new discard pile
+        staged = { {}, {}, {} },  
+        discardPile = {},         
         mana = 1,
         points = 0
     }
@@ -47,7 +47,7 @@ end
 
 function Player:startTurn(turn)
     self.turn = turn
-    local baseMana = math.min(10, turn) -- or whatever rule you want
+    local baseMana = math.min(10, turn)
     self.mana = baseMana + (self.bonusMana or 0)
     self.bonusMana = 0
 end
